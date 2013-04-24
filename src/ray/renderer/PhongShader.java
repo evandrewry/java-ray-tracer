@@ -6,6 +6,7 @@ import ray.math.Point3;
 import ray.math.Vector3;
 import ray.misc.Color;
 import ray.misc.IntersectionRecord;
+import ray.misc.Color;
 import ray.misc.Ray;
 import ray.misc.Scene;
 import ray.sampling.SampleGenerator;
@@ -97,4 +98,5 @@ public class PhongShader implements Renderer {
         // For such a simple rendering algorithm, you might not need Monte Carlo integration
         // In this case, you can ignore the input variable, sampler and sampleIndex.
     }
+
 }

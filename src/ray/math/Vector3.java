@@ -19,14 +19,14 @@ package ray.math;
  * @author ags
  */
 public class Vector3 extends Tuple3 {
-	
+
 	/**
 	 * Default constructor creates a zero vector.
 	 */
 	public Vector3() {
 		super(0, 0, 0);
 	}
-	
+
 	/**
 	 * Copy constructor.
 	 * @param newTuple The vector to copy.
@@ -34,24 +34,32 @@ public class Vector3 extends Tuple3 {
 	public Vector3(Tuple3 newTuple) {
 		super(newTuple.x, newTuple.y, newTuple.z);
 	}
-	
+
+	/**
+	 * Copy constructor.
+	 * @param newTuple The vector to copy.
+	 */
+	public Vector3(Point3 origin, Point3 direction) {
+		super(direction.x - origin.x, direction.y - origin.y, direction.z - origin.z);
+	}
+
 	/**
 	 * Construct vector with given coordinates.
-	 * @param newX 
+	 * @param newX
 	 * @param newY
-	 * @param newZ 
+	 * @param newZ
 	 */
 	public Vector3(double newX, double newY, double newZ) {
 		super(newX, newY, newZ);
 	}
-	
+
 	public void setSpherical(double theta, double phi) {
 		double s = Math.sin(theta);
 		x = s * Math.cos(phi);
 		y = s * Math.sin(phi);
 		z = Math.cos(theta);
 	}
-	
+
 	/**
 	 * Sets this vector to the cross product of op1 and op2
 	 * @param op1
@@ -62,7 +70,7 @@ public class Vector3 extends Tuple3 {
 		this.y = op1.z * op2.x - op1.x * op2.z;
 		this.z = op1.x * op2.y - op1.y * op2.x;
 	}
-	
+
 	/**
 	 * Compute the dot product of this vector with another vector.
 	 * @param rhs The right hand operand.
@@ -71,7 +79,7 @@ public class Vector3 extends Tuple3 {
 	public double dot(Vector3 rhs) {
 		return x * rhs.x + y * rhs.y + z * rhs.z;
 	}
-	
+
 	/**
 	 * Compute the length of this vector.
 	 * @return The length.
@@ -79,15 +87,15 @@ public class Vector3 extends Tuple3 {
 	public double length() {
 		return Math.sqrt(x * x + y * y + z * z);
 	}
-	
+
 	/**
 	 * Compute the squared length of this vector.
 	 * @return The squared length
 	 */
-	public double squaredLength() {	
+	public double squaredLength() {
 		return x * x + y * y + z * z;
 	}
-	
+
 	/**
 	 * Normalize this vector so that its length is 1.0.
 	 * If the length is 0, no action is taken.
@@ -100,7 +108,7 @@ public class Vector3 extends Tuple3 {
 			z /= dist;
 		}
 	}
-	
+
 	/**
 	 * Add a Vector3 to this Vector3
 	 * @param vector the Vector3 to add
@@ -110,7 +118,7 @@ public class Vector3 extends Tuple3 {
 		this.y += vector.y;
 		this.z += vector.z;
 	}
-	
+
 	/**
 	 * Add the values of Vector3 v1 and Vector3 v2 and store the sum in this Vector3.
 	 * @param v1 the first operand
@@ -121,7 +129,7 @@ public class Vector3 extends Tuple3 {
 		this.y = v1.y + v2.y;
 		this.z = v1.z + v2.z;
 	}
-	
+
 	/**
 	 * Substract a Vector3 from this Vector3, storing the result in this Vector3.
 	 * @param vector the Tuple3 to subtract
@@ -131,7 +139,7 @@ public class Vector3 extends Tuple3 {
 		this.y -= vector.y;
 		this.z -= vector.z;
 	}
-	
+
 	/**
 	 * Subtract one Point3 from another Point3, storing the result in this Vector2.
 	 * @param p1 the first operand
@@ -142,7 +150,7 @@ public class Vector3 extends Tuple3 {
 		this.y = p1.y - p2.y;
 		this.z = p1.z - p2.z;
 	}
-	
+
 	/**
 	 * Add a scalar multiple of a Vector3 to this Vector3
 	 * @param scale the scale factor
@@ -153,7 +161,7 @@ public class Vector3 extends Tuple3 {
 		this.y += scale * vector.y;
 		this.z += scale * vector.z;
 	}
-	
+
 	/**
 	 * Construct a vector that is perpendicular to v.  This is done
 	 * stably by finding a far-from-parallel vector and crossing it with v.
@@ -162,16 +170,16 @@ public class Vector3 extends Tuple3 {
 	public void perpendicular(Vector3 v) {
 		double vx = Math.abs(v.x), vy = Math.abs(v.y), vz = Math.abs(v.z);
 		if (vx < vy) {
-			if (vx < vz) 
+			if (vx < vz)
 				set(0, -v.z, v.y); // (-1, 0, 0)
-			else 
+			else
 				set(-v.y, v.x, 0); // (0, 0, -1)
 		} else {
-			if (vy < vz) 
+			if (vy < vz)
 				set(v.z, 0, -v.x); // (0, -1, 0)
-			else 
+			else
 				set(-v.y, v.x, 0); // (0, 0, -1)
 		}
 	}
-	
+
 }

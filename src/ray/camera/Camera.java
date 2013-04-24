@@ -24,7 +24,7 @@ public class Camera {
   protected final Point3 location = new Point3();
 
   /** The direction opposite the direction that the camera is looking. */
-  public final Vector3 back = new Vector3(1, 0, 0);
+  protected final Vector3 back = new Vector3(1, 0, 0);
 
   /**
    * The right vector of the camera, it points toward the right side of the
@@ -67,7 +67,11 @@ public class Camera {
    * point the camera will "look" at. Finally, the up vector defines the
    * vertical direction in the image. An orthonormal basis is contructed from
    * these vectors to describe the camera orientation.
+<<<<<<< HEAD
    *
+=======
+   *
+>>>>>>> 8c644002221ee7a7b98a5eb5062df1131629e8db
    * @param eye the camera eye point
    * @param target the camera target point
    * @param up the camera up vector

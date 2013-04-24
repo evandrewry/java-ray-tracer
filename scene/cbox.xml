@@ -9,16 +9,15 @@
     <numSamplesV>4</numSamplesV>
   </sampler>
 
-  <!--
+
   <renderer type="AmbientOcclusion">
     <length>0.2</length>
   </renderer>
-  -->
+  <!--
   <renderer type="PhongShader">
-      <alpha>0.7</alpha>
+      <alpha>4.</alpha>
   </renderer>
 
-  <!--
   <renderer type="BruteForcePathTracer">
     <depthLimit>5</depthLimit>
     <backgroundIllumination>1</backgroundIllumination>
