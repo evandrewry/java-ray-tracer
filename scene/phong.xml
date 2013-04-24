@@ -1,0 +1,89 @@
+<scene>
+  <image> 560 560 </image>
+
+  <sampler type="JitteredSampler">
+    <numSamplesU>2</numSamplesU>
+    <numSamplesV>2</numSamplesV>
+  </sampler>
+
+  <!--
+  <renderer type="AmbientOcclusion">
+    <length>0.2</length>
+  </renderer>
+  -->
+  <renderer type="PhongShader">
+      <alpha>4.</alpha>
+  </renderer>
+
+  <light type="PointLight">
+      <location>-2. 0. 2.</location>
+      <diffuse>1.0 0. 0.</diffuse>
+  </light>
+
+  <light type="PointLight">
+      <location>2. 0. 2.</location>
+      <diffuse>0.0 1. 0.</diffuse>
+  </light>
+
+  <camera>
+    <eye>1.59772 -5.48982 4.05773</eye>
+    <target>1.35925 -4.66916 3.53846</target>
+    <up>-0.144899 0.498646 0.854609</up>
+    <yFOV>40</yFOV>
+  </camera>
+
+  <material name="white" type="Homogeneous">
+    <brdf type="Lambertian">
+      <reflectance>0.75 0.75 0.75</reflectance>
+    </brdf>
+  </material>
+  <material name="red" type="Homogeneous">
+    <brdf type="Lambertian">
+      <reflectance>0.6 0.05 0.05</reflectance>
+    </brdf>
+  </material>
+  <material name="green" type="Homogeneous">
+    <brdf type="Lambertian">
+      <reflectance>0.1 0.45 0.15</reflectance>
+    </brdf>
+  </material>
+  <material name="grey" type="Homogeneous">
+    <brdf type="Lambertian">
+      <reflectance>0.4 0.4 0.4</reflectance>
+    </brdf>
+  </material>
+
+  <material name="light" type="LambertianEmitter">
+    <brdf type="Lambertian">
+      <reflectance>0.78 0.78 0.78</reflectance>
+    </brdf>
+    <radiance>60 60 60</radiance>
+  </material>
+
+
+  <surface type="Mesh">
+    <material ref="grey" />
+    <data>floor.msh</data>
+  </surface>
+
+  <surface type="Mesh">
+    <material ref="green" />
+    <data>monkey.msh</data>
+  </surface>
+
+  <surface type="Sphere">
+    <material ref="green" />
+    <center>1.2 -1. 0.</center>
+    <radius>0.4</radius>
+  </surface>
+
+  <surface type="Sphere">
+    <material ref="green" />
+    <center>-1.2 -1. 0.</center>
+    <radius>0.7</radius>
+  </surface>
+  <background type="Uniform">
+    <radiance>0.0 0.0 0.0</radiance>
+  </background>
+
+</scene>

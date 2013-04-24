@@ -1,0 +1,47 @@
+<project name='carbine' basedir="." default="run">
+    <property name="author" value="Changxi Zheng" />
+
+    <property name="build.dir" value="${basedir}/build" />
+    <property name="build.classdir" value="${build.dir}/classes" />
+    <property name="build.distdir" value="${buildd.ir}/dist" />
+
+    <property name="src.dir" value="${basedir}/src" />
+    <property name="carbine.jar" value="${basedir}/carbine.jar"/>
+
+    <!-- EXECUTION TAGS -->
+    <property name="debug" value="off" />
+    <property name="verbose" value="off" />
+    <property name="args" value="scene/cbox.xml"/>
+
+    <!-- ========================================================================= -->   
+    <!--                                    Init                                   -->   
+    <!-- ========================================================================= -->   
+    <target name="init" description="Initialize ressources">                             
+       <mkdir dir="${build.classdir}"/>                                                   
+    </target> 
+
+    <!-- ========================================================================= -->   
+    <!--                               Build Scheduler                             -->   
+    <!-- ========================================================================= -->   
+    <target name="build.carbine" depends="init">
+        <javac srcdir="${src.dir}" destdir="${build.classdir}" debug="${debug}"
+            optimize="on" verbose="${verbose}" includeantruntime="false">
+        </javac>
+    </target>
+
+    <target name="jar.carbine" depends="build.carbine">
+        <jar jarfile="${carbine.jar}" index="true">
+            <fileset dir="${build.classdir}"
+                includes="**/META-INF/**,**/**"/>
+        </jar>
+    </target>
+
+    <target name="run" depends="jar.carbine">
+        <java classname="ray.RayTracer" fork="true">
+            <classpath>
+                <pathelement path="${build.classdir}"/>
+            </classpath>
+            <arg value="${args}"/>
+        </java>
+    </target>
+</project>

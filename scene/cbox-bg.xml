@@ -1,0 +1,82 @@
+<scene>
+
+  <image>
+      560 560
+  </image>
+
+  <sampler type="JitteredSampler">
+    <numSamplesU>10</numSamplesU>
+    <numSamplesV>10</numSamplesV>
+  </sampler>
+
+  <!--
+  <renderer type="DirectOnlyRenderer">
+    <directIlluminator type="LuminairesIlluminator" />
+  </renderer>
+  -->
+  <renderer type="BruteForcePathTracer">
+    <depthLimit>5</depthLimit>
+    <backgroundIllumination>1</backgroundIllumination>
+    <directIlluminator type="LuminairesIlluminator" />
+  </renderer>
+
+  <camera>
+    <eye>278.0 273.0 -800.0</eye>
+    <target>278.0 273.0 0</target>
+    <up>0 1 0</up>
+    <yFOV>40</yFOV>
+  </camera>
+
+  <material name="white" type="Homogeneous">
+    <brdf type="Lambertian">
+      <reflectance>0.75 0.75 0.75</reflectance>
+    </brdf>
+  </material>
+  <material name="red" type="Homogeneous">
+    <brdf type="Lambertian">
+      <reflectance>0.6 0.05 0.05</reflectance>
+    </brdf>
+  </material>
+  <material name="green" type="Homogeneous">
+    <brdf type="Lambertian">
+      <reflectance>0.1 0.45 0.15</reflectance>
+    </brdf>
+  </material>
+  <material name="grey" type="Homogeneous">
+    <brdf type="Lambertian">
+      <reflectance>0.4 0.4 0.4</reflectance>
+    </brdf>
+  </material>
+
+  <material name="light" type="LambertianEmitter">
+    <brdf type="Lambertian">
+      <reflectance>0.78 0.78 0.78</reflectance>
+    </brdf>
+    <radiance>60 60 60</radiance>
+  </material>
+
+  <surface type="Mesh">
+    <material ref="white" />
+    <data>cbox-light.msh</data>
+  </surface>
+
+  <surface type="Mesh">
+    <material ref="white" />
+    <data>cbox-white.msh</data>
+  </surface>
+
+  <surface type="Mesh">
+    <material ref="red" />
+    <data>cbox-red.msh</data>
+  </surface>
+
+  <surface type="Mesh">
+    <material ref="green" />
+    <data>cbox-green.msh</data>
+  </surface>
+
+  <background type="Uniform">
+    <radiance>1 1 1</radiance>
+  </background>
+
+</scene>
