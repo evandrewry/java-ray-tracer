@@ -11,15 +11,16 @@ import ray.misc.Color;
  * @author srm
  */
 public class Uniform implements Background {
-	
+
 	Color radiance = new Color(0, 0, 0);
-	
-	public Uniform() { }
-	
+
+	public Uniform() {
+	}
+
 	public Color getRadiance() {
 		return radiance;
 	}
-	
+
 	public void setRadiance(Color radiance) {
 		this.radiance.set(radiance);
 	}

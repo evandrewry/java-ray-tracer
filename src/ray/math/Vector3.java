@@ -2,20 +2,21 @@ package ray.math;
 
 /**********************************************************************************
  * GENERAL CONTRACT FOR ALL MATH CLASSES.
- *
+ * 
  * -- The destination of every method is assumed to be the object the method was
- * called on.  For example:
- *
- *      c.add(a,b) means c = a + b.
- *
+ * called on. For example:
+ * 
+ * c.add(a,b) means c = a + b.
+ * 
  * -- Whenever one operand of a binary operand is missing, it is assumed to be
- * the object the method was called upon.  For example:
- *
- *      c.add(a) means c = c + a.
- *
- *********************************************************************************
- *
+ * the object the method was called upon. For example:
+ * 
+ * c.add(a) means c = c + a.
+ * 
+ ********************************************************************************* 
+ * 
  * The Vector3 class represents a 3 dimension vector of doubles.
+ * 
  * @author ags
  */
 public class Vector3 extends Tuple3 {
@@ -29,7 +30,9 @@ public class Vector3 extends Tuple3 {
 
 	/**
 	 * Copy constructor.
-	 * @param newTuple The vector to copy.
+	 * 
+	 * @param newTuple
+	 *            The vector to copy.
 	 */
 	public Vector3(Tuple3 newTuple) {
 		super(newTuple.x, newTuple.y, newTuple.z);
@@ -37,14 +40,18 @@ public class Vector3 extends Tuple3 {
 
 	/**
 	 * Copy constructor.
-	 * @param newTuple The vector to copy.
+	 * 
+	 * @param newTuple
+	 *            The vector to copy.
 	 */
 	public Vector3(Point3 origin, Point3 direction) {
-		super(direction.x - origin.x, direction.y - origin.y, direction.z - origin.z);
+		super(direction.x - origin.x, direction.y - origin.y, direction.z
+				- origin.z);
 	}
 
 	/**
 	 * Construct vector with given coordinates.
+	 * 
 	 * @param newX
 	 * @param newY
 	 * @param newZ
@@ -62,6 +69,7 @@ public class Vector3 extends Tuple3 {
 
 	/**
 	 * Sets this vector to the cross product of op1 and op2
+	 * 
 	 * @param op1
 	 * @param op2
 	 */
@@ -73,7 +81,9 @@ public class Vector3 extends Tuple3 {
 
 	/**
 	 * Compute the dot product of this vector with another vector.
-	 * @param rhs The right hand operand.
+	 * 
+	 * @param rhs
+	 *            The right hand operand.
 	 * @return The dot product of this with rhs.
 	 */
 	public double dot(Vector3 rhs) {
@@ -82,6 +92,7 @@ public class Vector3 extends Tuple3 {
 
 	/**
 	 * Compute the length of this vector.
+	 * 
 	 * @return The length.
 	 */
 	public double length() {
@@ -90,6 +101,7 @@ public class Vector3 extends Tuple3 {
 
 	/**
 	 * Compute the squared length of this vector.
+	 * 
 	 * @return The squared length
 	 */
 	public double squaredLength() {
@@ -97,8 +109,8 @@ public class Vector3 extends Tuple3 {
 	}
 
 	/**
-	 * Normalize this vector so that its length is 1.0.
-	 * If the length is 0, no action is taken.
+	 * Normalize this vector so that its length is 1.0. If the length is 0, no
+	 * action is taken.
 	 */
 	public void normalize() {
 		double dist = Math.sqrt(x * x + y * y + z * z);
@@ -111,7 +123,9 @@ public class Vector3 extends Tuple3 {
 
 	/**
 	 * Add a Vector3 to this Vector3
-	 * @param vector the Vector3 to add
+	 * 
+	 * @param vector
+	 *            the Vector3 to add
 	 */
 	public void add(Vector3 vector) {
 		this.x += vector.x;
@@ -120,9 +134,13 @@ public class Vector3 extends Tuple3 {
 	}
 
 	/**
-	 * Add the values of Vector3 v1 and Vector3 v2 and store the sum in this Vector3.
-	 * @param v1 the first operand
-	 * @param v2 the second operand
+	 * Add the values of Vector3 v1 and Vector3 v2 and store the sum in this
+	 * Vector3.
+	 * 
+	 * @param v1
+	 *            the first operand
+	 * @param v2
+	 *            the second operand
 	 */
 	public void add(Vector3 v1, Vector3 v2) {
 		this.x = v1.x + v2.x;
@@ -131,8 +149,11 @@ public class Vector3 extends Tuple3 {
 	}
 
 	/**
-	 * Substract a Vector3 from this Vector3, storing the result in this Vector3.
-	 * @param vector the Tuple3 to subtract
+	 * Substract a Vector3 from this Vector3, storing the result in this
+	 * Vector3.
+	 * 
+	 * @param vector
+	 *            the Tuple3 to subtract
 	 */
 	public void sub(Vector3 vector) {
 		this.x -= vector.x;
@@ -141,9 +162,13 @@ public class Vector3 extends Tuple3 {
 	}
 
 	/**
-	 * Subtract one Point3 from another Point3, storing the result in this Vector2.
-	 * @param p1 the first operand
-	 * @param p2 the second operand
+	 * Subtract one Point3 from another Point3, storing the result in this
+	 * Vector2.
+	 * 
+	 * @param p1
+	 *            the first operand
+	 * @param p2
+	 *            the second operand
 	 */
 	public void sub(Point3 p1, Point3 p2) {
 		this.x = p1.x - p2.x;
@@ -153,8 +178,11 @@ public class Vector3 extends Tuple3 {
 
 	/**
 	 * Add a scalar multiple of a Vector3 to this Vector3
-	 * @param scale the scale factor
-	 * @param vector the vector to scale and add
+	 * 
+	 * @param scale
+	 *            the scale factor
+	 * @param vector
+	 *            the vector to scale and add
 	 */
 	public void scaleAdd(double scale, Tuple3 vector) {
 		this.x += scale * vector.x;
@@ -163,8 +191,9 @@ public class Vector3 extends Tuple3 {
 	}
 
 	/**
-	 * Construct a vector that is perpendicular to v.  This is done
-	 * stably by finding a far-from-parallel vector and crossing it with v.
+	 * Construct a vector that is perpendicular to v. This is done stably by
+	 * finding a far-from-parallel vector and crossing it with v.
+	 * 
 	 * @param v
 	 */
 	public void perpendicular(Vector3 v) {

@@ -12,12 +12,15 @@ import ray.misc.LuminaireSamplingRecord;
  * @author srm
  */
 public class Homogeneous implements Material {
-	
-	BRDF brdf = new Lambertian();
-	
-	public Homogeneous() { }
 
-	public void setBRDF(BRDF brdf) { this.brdf = brdf; }
+	BRDF brdf = new Lambertian();
+
+	public Homogeneous() {
+	}
+
+	public void setBRDF(BRDF brdf) {
+		this.brdf = brdf;
+	}
 
 	public BRDF getBRDF(IntersectionRecord iRec) {
 		return brdf;
