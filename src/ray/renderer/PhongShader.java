@@ -24,79 +24,57 @@ public class PhongShader implements Renderer {
 
     @Override
     public void rayRadiance(Scene scene, Ray ray, SampleGenerator sampler, int sampleIndex, Color outColor) {
+        Vector3 N, V, L, R;
+        Color diffuse, specular;
         IntersectionRecord iRec = new IntersectionRecord();
 
         if (scene.getFirstIntersection(iRec, ray)) {
             outColor.set(0);
-            Point3 vertex = new Point3();
-            ray.evaluate(vertex, iRec.t);
 
-            Vector3 N = new Vector3(iRec.frame.w);
+            N = new Vector3(iRec.frame.w);
             N.normalize();
-            //N.scale(-1);
 
-            Vector3 V = new Vector3(ray.direction);
-            Ray cameraRay = new Ray();
-            scene.getCamera().getRay(cameraRay, iRec.texCoords.x, iRec.texCoords.y);
-            V.set(cameraRay.direction);
+            Ray view = new Ray();
+            scene.getCamera().getRay(view, iRec.texCoords.x, iRec.texCoords.y);
+            V = new Vector3(view.direction);
             V.normalize();
-            // V.scale(-1.);
+
+            R = new Vector3();
+            L = new Vector3();
+
+            diffuse = new Color();
+            specular = new Color();
 
             for (PointLight pl : scene.getPointLights()) {
-                Vector3 L = new Vector3(pl.location);
-                L.sub(new Vector3(vertex));
-                L.normalize();
-                //L.scale(-1);
 
-
+                L.sub(pl.location, iRec.frame.o);
 
                 if (L.dot(N) > 0) {
                     //find reflection direction
-                    Vector3 R = new Vector3(N);
+                    R.set(N);
                     R.scale(2 * L.dot(N));
                     R.sub(L);
                     R.normalize();
 
                     //add diffuse
-                    Color diffuse = new Color(/*pl.diffuse*/);
                     iRec.surface.getMaterial().getBRDF(iRec).evaluate(iRec.frame, L, R, diffuse);
                     diffuse.scale(1 / Math.PI);
                     diffuse.scale(L.dot(N));
                     diffuse.scale(pl.diffuse);
-                    //diffuse.clamp(0, 1);
+                    //diffuse.scale(0.1);
                     outColor.add(diffuse);
 
-
-
-
-                    Color specular = new Color(/*pl.specular*/);
-                    //iRec.surface.getMaterial().getBRDF(iRec).evaluate(iRec.frame, L, R, specular);
-                    //specular.scale(1 / Math.PI);
-                    specular.set(pl.specular);
-
+                    //add specular
+                    iRec.surface.getMaterial().getBRDF(iRec).evaluate(iRec.frame, L, R, specular);
+                    specular.scale(1 / Math.PI);
                     specular.scale(Math.pow(R.dot(V), phongCoeff));
-//                    specular.scale(pl.specular);
-                //    specular.scale(0.2);
-                    //specular.clamp(0, 1);
-
-                    //outColor.add(specular);
-                    //outColor.clamp(0, 1);
+                    specular.scale(pl.specular);
+                    outColor.add(specular);
                 }
             }
-
-
-            return;
+        } else {
+            scene.getBackground().evaluate(ray.direction, outColor);
         }
-
-        scene.getBackground().evaluate(ray.direction, outColor);
-
-        // W4160 TODO (A)
-        // Here you need to implement the basic phong reflection model to calculate
-        // the color value (radiance) along the given ray. The output color value
-        // is stored in outColor.
-        //
-        // For such a simple rendering algorithm, you might not need Monte Carlo integration
-        // In this case, you can ignore the input variable, sampler and sampleIndex.
     }
 
 }

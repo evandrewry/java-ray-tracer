@@ -1,5 +1,6 @@
 package ray.surface;
 
+import carbine.MathExt;
 import ray.accel.AxisAlignedBoundingBox;
 import ray.material.Material;
 import ray.math.Geometry;
@@ -112,21 +113,50 @@ public class Sphere extends Surface {
      *      ray1.misc.Ray)
      */
     public boolean intersect(IntersectionRecord outRecord, Ray ray) {
-        // W4160 TODO (A)
-    	// In this function, you need to test if the given ray intersect with a sphere.
-    	// You should look at the intersect method in other classes such as ray.surface.Triangle.java
-    	// to see what fields of IntersectionRecord should be set correctly.
-    	// The following fields should be set in this function
-    	//     IntersectionRecord.t
-    	//     IntersectionRecord.frame
-    	//     IntersectionRecord.surface
-    	//
-    	// Note: Although a ray is conceptually a infinite line, in practice, it often has a length,
-    	//       and certain rendering algorithm relies on the length. Therefore, here a ray is a
-    	//       segment rather than a infinite line. You need to test if the segment is intersect
-    	//       with the sphere. Look at ray.misc.Ray.java to see the information provided by a ray.
+        double t = 0;
+        Vector3 centerVect = new Vector3(this.center, ray.origin);
+        double a = ray.direction.dot(ray.direction);
+        double b = 2 * centerVect.dot(ray.direction);
+        double c = centerVect.dot(centerVect) - this.radius * this.radius;
 
-        return false;
+        double discriminant = b * b - 4.0 * a * c;
+        if (discriminant < -MathExt.DOUBLE_EPS) {
+            return false;
+        } else if (discriminant <= MathExt.DOUBLE_EPS) {
+            // find t value at intersection
+            t = -b / 2 * a;
+            if (t < ray.start || t > ray.end) {
+                System.out.println("t not on ray");
+                return false;
+            }
+        } else {
+            /* find t values at both intersections */
+            double t0 = (-b - Math.sqrt(discriminant)) / (2.0 * a);
+            double t1 = (-b + Math.sqrt(discriminant)) / (2.0 * a);
+
+            /* check if we have a valid intersection on the ray */
+            boolean t0valid = t0 >= ray.start && t0 <= ray.end;
+            boolean t1valid = t1 >= ray.start && t1 <= ray.end;
+
+            /* if both valid, choose the first, otherwise choose the valid one */
+            if (t0valid && t1valid)
+                t = t0 < t1 ? t0 : t1;
+            else if (t0valid)
+                t = t0;
+            else if (t1valid)
+                t = t1;
+            else
+                return false;
+        }
+
+        outRecord.t = t;
+        outRecord.surface = this;
+        ray.evaluate(outRecord.frame.o, t);
+        outRecord.frame.w.sub(outRecord.frame.o, this.center);
+        outRecord.frame.w.normalize();
+        outRecord.frame.initFromW();
+
+        return true;
     }
 
     /**

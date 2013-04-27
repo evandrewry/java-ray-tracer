@@ -5,17 +5,17 @@
   </image>
 
   <sampler type="JitteredSampler">
-    <numSamplesU>4</numSamplesU>
-    <numSamplesV>4</numSamplesV>
+    <numSamplesU>5</numSamplesU>
+    <numSamplesV>5</numSamplesV>
   </sampler>
 
 
+  <!--
   <renderer type="AmbientOcclusion">
     <length>0.2</length>
   </renderer>
-  <!--
   <renderer type="PhongShader">
-      <alpha>4.</alpha>
+      <alpha>8.</alpha>
   </renderer>
 
   <renderer type="BruteForcePathTracer">
@@ -29,10 +29,12 @@
     <backgroundIllumination>1</backgroundIllumination>
     <directIlluminator type="LuminairesIlluminator" />
   </renderer>
+  -->
 
   <renderer type="DirectOnlyRenderer">
-    <directIlluminator type="LuminairesIlluminator" />
+    <directIlluminator type="ProjSolidAngleIlluminator" />
   </renderer>
+  <!--
 
   <renderer type="DirectOnlyRenderer">
     <directIlluminator type="LuminairesIlluminator" />
@@ -47,6 +49,13 @@
 
   <light type="PointLight">
       <location>0. 510. 0</location>
+      <diffuse>.3 0.3 0.3</diffuse>      
+  </light>
+
+  
+  <light type="PointLight">
+      <location>300. 510. 0</location>
+      <diffuse>0.2 0.2 0.2</diffuse>      
   </light>
 
   <camera>
@@ -81,7 +90,7 @@
     <brdf type="Lambertian">
       <reflectance>0.78 0.78 0.78</reflectance>
     </brdf>
-    <radiance>60 60 60</radiance>
+    <radiance>30 30 30</radiance>
   </material>
 
   <surface type="Mesh">
@@ -107,5 +116,11 @@
   <background type="Uniform">
     <radiance>0.0 0.0 0.0</radiance>
   </background>
-
+  <!--
+  <surface type="Sphere">
+    <material ref="green" />
+    <center>1.2 -1. 0.</center>
+    <radius>50.</radius>
+  </surface>
+    -->
 </scene>

@@ -35,11 +35,7 @@ public class Lambertian implements BRDF {
 
     /**
      * @param frame frame comes from IntersectionRecord instance, where w component of this frame align with
-<<<<<<< HEAD
      *        the surface normal.
-=======
-     *        the surface normal.
->>>>>>> 8c644002221ee7a7b98a5eb5062df1131629e8db
      * @see ray.brdf.BRDF#pdf(ray.math.Frame3, ray.math.Vector3, ray.math.Vector3)
      */
     public double pdf(Frame3 frame, Vector3 fixedDir, Vector3 dir) {
