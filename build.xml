@@ -11,7 +11,7 @@
     <!-- EXECUTION TAGS -->
     <property name="debug" value="off" />
     <property name="verbose" value="off" />
-    <property name="args" value="scene/cbox.xml"/>
+    <property name="args" value="scene/cbox-direct-5.xml"/>
 
     <!-- ========================================================================= -->   
     <!--                                    Init                                   -->   

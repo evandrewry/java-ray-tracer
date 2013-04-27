@@ -22,10 +22,15 @@ import ray.misc.Scene;
  * @author srm, Changxi Zheng(+)
  */
 public class ProjSolidAngleIlluminator extends DirectIlluminator {
+	
+	/* making these 'global' since all of this code is serial */
     private LuminaireSamplingRecord lRec = new LuminaireSamplingRecord();
+    private IntersectionRecord lightIRec = new IntersectionRecord();
     private Color brdf = new Color();
     private Color irradiance = new Color();
-
+    private Vector3 normal = new Vector3();
+    private Ray sample = new Ray();
+    
     public LuminaireSamplingRecord currentLuminaireSamplingRecord() {
         return lRec;
     }
@@ -33,21 +38,30 @@ public class ProjSolidAngleIlluminator extends DirectIlluminator {
     public void directIllumination(Scene scene, Vector3 incDir, Vector3 outDir,
             IntersectionRecord iRec, Point2 seed, Color outColor) {
     	
+    	/* normal at intersection is w of the intersection record's frame */
+        normal.set(iRec.frame.w);
+        normal.normalize();
+    	
+    	/* unit square sample -> unit hemisphere sample */
         Geometry.squareToPSAHemisphere(seed, incDir);
+        
+        /* convert sample direction to world coords, normalize */
         iRec.frame.frameToCanonical(incDir);
         incDir.normalize();
         
-        Vector3 N = new Vector3(iRec.frame.w);
-        N.normalize();
-        outDir.set(N);
-        outDir.scale(2 * incDir.dot(N));
+        /* find reflection across normal at intersection point
+         * R = 2N * (L.N) - L */
+        outDir.set(normal);
+        outDir.scale(2 * incDir.dot(normal));
         outDir.sub(incDir);
         outDir.normalize();
-        
-        Ray reflection = new Ray(iRec.frame.o, incDir);
-        reflection.makeOffsetRay();
-        IntersectionRecord lightIRec = new IntersectionRecord();
-        if (scene.getFirstIntersection(lightIRec, reflection) && lightIRec.surface.getMaterial().isEmitter()) {
+
+        /* cast a ray at the sample direction and see if it intersects an emitter */
+        sample.set(iRec.frame.o, incDir);
+        sample.makeOffsetRay();
+        if (scene.getFirstIntersection(lightIRec, sample) && lightIRec.surface.getMaterial().isEmitter()) {
+        	/* if our surface is directly illuminated, calculate the rendering equation terms */
+        	
             /* get BRDF */
             Material m = iRec.surface.getMaterial();
             m.getBRDF(iRec).evaluate(iRec.frame, incDir, outDir, brdf);
@@ -56,15 +70,15 @@ public class ProjSolidAngleIlluminator extends DirectIlluminator {
             lightIRec.surface.getMaterial().emittedRadiance(lRec, irradiance);
             irradiance.scale(iRec.frame.w.dot(incDir));
 
-
-            /* compute radiance */
+            /* compute direct illumination */
             outColor.set(1.0);
             outColor.scale(brdf);
             outColor.scale(irradiance);
             outColor.scale(Math.PI);
-
-            //System.out.println("brdf: " + brdf + ", irdnc: " + irradiance + ", g: " + illumination);
+            
         } else {
+        	
+        	/* otherwise, there is no illumination from this sample direction */
         	outColor.set(0);
         }
     }
