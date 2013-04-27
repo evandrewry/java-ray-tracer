@@ -1,9 +1,5 @@
 package ray.renderer;
 
-import ray.brdf.BRDF;
-import ray.material.Material;
-import ray.math.Geometry;
-import ray.math.Point2;
 import ray.math.Vector3;
 import ray.misc.Color;
 import ray.misc.IntersectionRecord;

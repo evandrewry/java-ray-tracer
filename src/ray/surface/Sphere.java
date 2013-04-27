@@ -1,6 +1,5 @@
 package ray.surface;
 
-import carbine.MathExt;
 import ray.accel.AxisAlignedBoundingBox;
 import ray.material.Material;
 import ray.math.Geometry;
@@ -10,6 +9,7 @@ import ray.math.Vector3;
 import ray.misc.IntersectionRecord;
 import ray.misc.LuminaireSamplingRecord;
 import ray.misc.Ray;
+import carbine.MathExt;
 
 /**
  * Represents a sphere as a center and a radius.

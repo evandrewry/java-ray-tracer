@@ -6,13 +6,13 @@ package ray.surface;
 
 import ray.accel.AxisAlignedBoundingBox;
 import ray.material.Material;
+import ray.math.Geometry;
 import ray.math.Point2;
 import ray.math.Point3;
 import ray.math.Vector3;
 import ray.misc.IntersectionRecord;
 import ray.misc.LuminaireSamplingRecord;
 import ray.misc.Ray;
-import ray.math.Geometry;
 
 /**
  * Represents an individual triangle in a mesh.

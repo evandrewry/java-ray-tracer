@@ -2,13 +2,13 @@ package ray.surface;
 
 import java.util.Comparator;
 
+import ray.accel.AxisAlignedBoundingBox;
 import ray.material.Material;
+import ray.math.Point2;
+import ray.math.Point3;
 import ray.misc.IntersectionRecord;
 import ray.misc.LuminaireSamplingRecord;
 import ray.misc.Ray;
-import ray.math.Point2;
-import ray.math.Point3;
-import ray.accel.AxisAlignedBoundingBox;
 
 /**
  * Abstract base class for all surfaces.  Provides access for material and

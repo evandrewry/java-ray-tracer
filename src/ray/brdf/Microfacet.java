@@ -1,13 +1,14 @@
 package ray.brdf;
 
 import java.util.Random;
-import carbine.MathExt;
+
 import ray.math.Frame3;
 import ray.math.Geometry;
 import ray.math.Point2;
 import ray.math.Vector3;
 import ray.misc.Color;
 import ray.misc.Image;
+import carbine.MathExt;
 
 public class Microfacet implements BRDF {    
     

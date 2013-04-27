@@ -2,12 +2,12 @@ package ray.misc;
 
 import java.util.ArrayList;
 
-import ray.light.PointLight;
 import ray.accel.AccelerationStructure;
 import ray.accel.BoundingVolume;
 import ray.background.Background;
 import ray.background.Uniform;
 import ray.camera.Camera;
+import ray.light.PointLight;
 import ray.material.Material;
 import ray.math.Point2;
 import ray.math.Point3;

@@ -1,9 +1,9 @@
 package ray.brdf;
 
 import ray.math.Frame3;
+import ray.math.Geometry;
 import ray.math.Point2;
 import ray.math.Vector3;
-import ray.math.Geometry;
 import ray.misc.Color;
 
 /**

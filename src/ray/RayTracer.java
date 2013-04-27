@@ -1,7 +1,5 @@
 package ray;
 
-import java.lang.Thread;
-
 import ray.camera.Camera;
 import ray.io.Parser;
 import ray.math.Point2;

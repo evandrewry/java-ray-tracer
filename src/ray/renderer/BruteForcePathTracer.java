@@ -1,8 +1,6 @@
 package ray.renderer;
 
-import ray.math.Vector3;
 import ray.misc.Color;
-import ray.misc.IntersectionRecord;
 import ray.misc.Ray;
 import ray.misc.Scene;
 import ray.sampling.SampleGenerator;
