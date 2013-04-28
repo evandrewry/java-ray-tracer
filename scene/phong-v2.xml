@@ -2,34 +2,29 @@
   <image> 560 560 </image>
 
   <sampler type="JitteredSampler">
-    <numSamplesU>4</numSamplesU>
-    <numSamplesV>4</numSamplesV>
+    <numSamplesU>2</numSamplesU>
+    <numSamplesV>2</numSamplesV>
   </sampler>
+
   <!--
-  <renderer type="DirectOnlyRenderer">
-    <directIlluminator type="LuminairesIlluminator" />
-  </renderer>
   <renderer type="AmbientOcclusion">
     <length>0.2</length>
   </renderer>
   -->
-
   <renderer type="PhongShader">
-      <alpha>8.</alpha>
+      <alpha>4.</alpha>
   </renderer>
+
   <light type="PointLight">
       <location>-2. 0. 2.</location>
-      <diffuse>1.0 0. 0.</diffuse>
+      <diffuse>0.1 0. 0.</diffuse>
+      <specular>0.1 0.1 0.1</specular>
   </light>
 
   <light type="PointLight">
       <location>2. 0. 2.</location>
-      <diffuse>0.0 1. 0.</diffuse>
-  </light>
-
-  <light type="PointLight">
-      <location>2. 0. 3.</location>
-      <diffuse>0.2 0. 0.9</diffuse>
+      <diffuse>0.0 0.1 0.</diffuse>
+      <specular>0.1 0.1 0.1</specular>
   </light>
 
   <camera>
@@ -92,8 +87,5 @@
   <background type="Uniform">
     <radiance>0.0 0.0 0.0</radiance>
   </background>
-  <surface type="Mesh">
-    <material ref="light" />
-    <data>cbox-light.msh</data>
-  </surface>
+
 </scene>
