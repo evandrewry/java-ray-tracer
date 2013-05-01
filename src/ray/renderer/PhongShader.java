@@ -57,16 +57,13 @@ public class PhongShader implements Renderer {
 					// add diffuse
 					iRec.surface.getMaterial().getBRDF(iRec)
 							.evaluate(iRec.frame, L, R, diffuse);
-					diffuse.scale(1 / Math.PI);
 					diffuse.scale(L.dot(N));
 					diffuse.scale(pl.diffuse);
-					// diffuse.scale(0.1);
 					outColor.add(diffuse);
 
 					// add specular
 					iRec.surface.getMaterial().getBRDF(iRec)
 							.evaluate(iRec.frame, L, R, specular);
-					specular.scale(1 / Math.PI);
 					specular.scale(Math.pow(R.dot(V), phongCoeff));
 					specular.scale(pl.specular);
 					outColor.add(specular);
